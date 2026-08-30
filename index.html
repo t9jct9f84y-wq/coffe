@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
+
+<title>Letters | Coffee</title>
+
+<style>
+
+/* =====================================================
+   COLORS
+===================================================== */
+
+:root {
+    --teal: #31565a;
+    --teal-dark: #203c40;
+    --teal-light: #58777a;
+
+    --wood: #684732;
+    --wood-dark: #3d281d;
+    --wood-light: #916846;
+
+    --paper: #f1dfbd;
+    --paper-light: #faecd2;
+
+    --brown: #6d472e;
+    --caramel: #a96f40;
+
+    --cream: #f7ead4;
+    --ink: #493126;
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: #1f383b;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+
+/* =====================================================
+   PAGE / 9:16 PHONE
+===================================================== */
+
+.page {
+    position: fixed;
+    inset: 0;
+
+    width: 100vw;
+    height: 100dvh;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.page.active {
+    display: flex;
+}
+
+
+/* على الكمبيوتر يظهر كأنه شاشة جوال */
+
+@media (min-width: 600px) {
+
+    .page {
+        width: min(
+            100vw,
+            calc(100dvh * .5625)
+        );
+
+        height: min(
+            100dvh,
+            calc(100vw / .5625)
+        );
+
+        left: 50%;
+        right: auto;
+
+        transform: translateX(-50%);
+
+        box-shadow:
+            0 0 70px rgba(0,0,0,.35);
+    }
+
+}
+
+
+/* =====================================================
+   CAFE WALL
+===================================================== */
+
+.cafe {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 13%,
+            rgba(255,220,166,.18),
+            transparent 24%
+        ),
+
+        repeating-linear-gradient(
+            90deg,
+            rgba(255,255,255,.018) 0,
+            rgba(255,255,255,.018) 2px,
+            transparent 2px,
+            transparent 11px
+        ),
+
+        linear-gradient(
+            135deg,
+            #3a5c60,
+            #2b494d 55%,
+            #213d40
+        );
+}
+
+
+/* =====================================================
+   WOOD COUNTER
+===================================================== */
+
+.counter {
+    position: absolute;
+
+    left: -5%;
+    right: -5%;
+    bottom: -3%;
+
+    height: 19%;
+
+    z-index: 2;
+
+    background:
+
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,.025) 0,
+            rgba(255,255,255,.025) 2px,
+            transparent 2px,
+            transparent 14px
+        ),
+
+        repeating-linear-gradient(
+            90deg,
+            rgba(0,0,0,.09) 0,
+            rgba(0,0,0,.09) 60px,
+            transparent 60px,
+            transparent 130px
+        ),
+
+        linear-gradient(
+            #78543a,
+            #4b3022
+        );
+
+    box-shadow:
+        0 -15px 35px rgba(0,0,0,.25);
+}
+
+
+/* =====================================================
+   WINDOW
+===================================================== */
+
+.window {
+    position: absolute;
+
+    top: 7%;
+    left: 4%;
+
+    width: 27%;
+    height: 20%;
+
+    min-width: 85px;
+    min-height: 120px;
+
+    z-index: 3;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d9c99d,
+            #91aaa5
+        );
+
+    border:
+        7px solid #52372a;
+
+    box-shadow:
+        inset 0 0 25px rgba(0,0,0,.20),
+        0 10px 25px rgba(0,0,0,.20);
+}
+
+.window::before {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 0;
+    bottom: 0;
+
+    width: 5px;
+
+    background: #593a2a;
+
+    transform: translateX(-50%);
+}
+
+.window::after {
+    content: "";
+
+    position: absolute;
+
+    top: 50%;
+    left: 0;
+    right: 0;
+
+    height: 5px;
+
+    background: #593a2a;
+
+    transform: translateY(-50%);
+}
+
+
+/* =====================================================
+   WINDOW AWNING
+===================================================== */
+
+.awning {
+    position: absolute;
+
+    top: 5%;
+    left: 2%;
+
+    width: 31%;
+    height: 4%;
+
+    min-height: 18px;
+
+    z-index: 5;
+
+    border-radius:
+        0
+        0
+        18px
+        18px;
+
+    background:
+
+        repeating-linear-gradient(
+            90deg,
+            #ead8b7 0,
+            #ead8b7 19px,
+            #577578 19px,
+            #577578 38px
+        );
+
+    box-shadow:
+        0 5px 8px rgba(0,0,0,.15);
+}
+
+
+/* =====================================================
+   WALL MENU FRAME
+===================================================== */
+
+.wall-frame {
+    position: absolute;
+
+    top: 8%;
+    right: 4%;
+
+    width: 27%;
+    height: 18%;
+
+    min-width: 95px;
+    min-height: 125px;
+
+    z-index: 3;
+
+    border:
+        7px solid #513628;
+
+    background:
+        #24383a;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.25);
+}
+
+.wall-frame-title {
+    text-align: center;
+
+    color: #e7d5b7;
+
+    font-family: Georgia, serif;
+
+    font-size:
+        clamp(8px, 2vw, 13px);
+
+    letter-spacing: 1px;
+
+    margin-top: 10px;
+}
+
+.menu-line {
+    height: 1px;
+
+    width: 70%;
+
+    background:
+        rgba(231,213,183,.55);
+
+    margin: 7px auto;
+}
+
+.menu-item {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 3px 8px;
+
+    color: #d8c7a9;
+
+    font-family: Arial, sans-serif;
+
+    font-size:
+        clamp(6px, 1.5vw, 9px);
+}
+
+
+/* =====================================================
+   WOODEN SHELF
+===================================================== */
+
+.shelf {
+    position: absolute;
+
+    top: 28%;
+    right: 3%;
+
+    width: 31%;
+    height: 18%;
+
+    min-width: 100px;
+
+    z-index: 5;
+}
+
+.shelf-board {
+    position: absolute;
+
+    left: 0;
+
+    width: 100%;
+    height: 8px;
+
+    background:
+        linear-gradient(
+            #936849,
+            #5d3c29
+        );
+
+    border-radius: 3px;
+
+    box-shadow:
+        0 5px 8px rgba(0,0,0,.22);
+}
+
+.shelf-board.top {
+    top: 17%;
+}
+
+.shelf-board.bottom {
+    top: 76%;
+}
+
+.shelf-support {
+    position: absolute;
+
+    width: 5px;
+    height: 68%;
+
+    top: 17%;
+
+    background:
+        #543624;
+}
+
+.shelf-support.left {
+    left: 15%;
+}
+
+.shelf-support.right {
+    right: 15%;
+}
+
+
+/* =====================================================
+   PLANT ON SHELF
+===================================================== */
+
+.shelf-plant {
+    position: absolute;
+
+    top: 0;
+    right: 16%;
+
+    width: 40px;
+    height: 57px;
+}
+
+.shelf-pot {
+    position: absolute;
+
+    bottom: 0;
+    left: 7px;
+
+    width: 27px;
+    height: 21px;
+
+    background:
+        linear-gradient(
+            #bd8b65,
+            #986346
+        );
+
+    border-radius:
+        3px
+        3px
+        9px
+        9px;
+}
+
+.shelf-stem {
+    position: absolute;
+
+    bottom: 15px;
+    left: 19px;
+
+    width: 2px;
+    height: 33px;
+
+    background:
+        #5b6e52;
+}
+
+.shelf-leaf {
+    position: absolute;
+
+    width: 18px;
+    height: 29px;
+
+    background:
+        #718765;
+
+    border-radius:
+        100%
+        0
+        100%
+        0;
+
+    transform-origin:
+        bottom center;
+}
+
+.shelf-leaf.one {
+    left: 3px;
+    bottom: 28px;
+
+    transform:
+        rotate(-37deg);
+}
+
+.shelf-leaf.two {
+    left: 17px;
+    bottom: 34px;
+
+    transform:
+        rotate(22deg);
+}
+
+.shelf-leaf.three {
+    left: 20px;
+    bottom: 23px;
+
+    transform:
+        rotate(47deg);
+}
+
+
+/* =====================================================
+   CUP ON SHELF
+===================================================== */
+
+.shelf-cup {
+    position: absolute;
+
+    bottom: 8px;
+    left: 17%;
+
+    width: 20px;
+    height: 16px;
+
+    border-radius:
+        2px
+        2px
+        7px
+        7px;
+
+    background:
+        #ead7b8;
+}
+
+.shelf-cup::before {
+    content: "";
+
+    position: absolute;
+
+    width: 15px;
+    height: 5px;
+
+    top: -3px;
+    left: 2px;
+
+    border-radius: 50%;
+
+    background:
+        #4a3023;
+}
+
+
+/* =====================================================
+   LAMP
+===================================================== */
+
+.lamp {
+    position: absolute;
+
+    top: -2%;
+    left: 50%;
+
+    transform:
+        translateX(-50%)
+        scale(.72);
+
+    transform-origin:
+        top center;
+
+    width: 100px;
+    height: 120px;
+
+    z-index: 6;
+}
+
+.lamp-wire {
+    width: 3px;
+    height: 56px;
+
+    margin: auto;
+
+    background:
+        #272321;
+}
+
+.lamp-shade {
+    position: relative;
+
+    width: 100px;
+    height: 53px;
+
+    background:
+        linear-gradient(
+            #8e694b,
+            #4c3629
+        );
+
+    border-radius:
+        50%
+        50%
+        15px
+        15px;
+}
+
+.lamp-bulb {
+    position: absolute;
+
+    width: 27px;
+    height: 27px;
+
+    left: 36px;
+    bottom: -13px;
+
+    border-radius: 50%;
+
+    background:
+        #ffd98f;
+
+    box-shadow:
+        0 0 30px #ffd98f,
+        0 0 65px rgba(255,217,143,.45);
+}
+
+
+/* =====================================================
+   ESPRESSO MACHINE
+===================================================== */
+
+.machine {
+    position: absolute;
+
+    right: 2%;
+    bottom: 16%;
+
+    width: 28%;
+
+    min-width: 105px;
+
+    height: 13%;
+
+    min-height: 78px;
+
+    z-index: 7;
+
+    border:
+        3px solid #223537;
+
+    border-radius:
+        8px
+        8px
+        4px
+        4px;
+
+    background:
+        linear-gradient(
+            #4d696b,
+            #2a4143
+        );
+
+    box-shadow:
+        0 10px 20px rgba(0,0,0,.28);
+}
+
+.machine-top {
+    position: absolute;
+
+    top: -12px;
+    left: 10px;
+    right: 10px;
+
+    height: 14px;
+
+    background:
+        #5e7879;
+
+    border-radius:
+        6px
+        6px
+        2px
+        2px;
+}
+
+.machine-button {
+    position: absolute;
+
+    top: 15px;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background:
+        #d1a56c;
+}
+
+.machine-button.one {
+    right: 14px;
+}
+
+.machine-button.two {
+    right: 31px;
+}
+
+.machine-gauge {
+    position: absolute;
+
+    top: 29px;
+    left: 12px;
+
+    width: 28px;
+    height: 28px;
+
+    border-radius: 50%;
+
+    background:
+        #ead8bc;
+
+    border:
+        3px solid #70513d;
+}
+
+.machine-gauge::after {
+    content: "";
+
+    position: absolute;
+
+    left: 12px;
+    top: 4px;
+
+    width: 2px;
+    height: 9px;
+
+    background:
+        #513a2c;
+
+    transform:
+        rotate(25deg);
+}
+
+.portafilter {
+    position: absolute;
+
+    top: 47px;
+    right: 18px;
+
+    width: 34px;
+    height: 5px;
+
+    border-radius: 5px;
+
+    background:
+        #282321;
+
+    transform:
+        rotate(8deg);
+}
+
+.portafilter::after {
+    content: "";
+
+    position: absolute;
+
+    right: -27px;
+    top: 1px;
+
+    width: 30px;
+    height: 4px;
+
+    background:
+        #292321;
+
+    border-radius: 5px;
+}
+
+.coffee-stream {
+    position: absolute;
+
+    top: 53px;
+    right: 35px;
+
+    width: 3px;
+    height: 21px;
+
+    background:
+        #6d4028;
+
+    animation:
+        drip 1.4s infinite;
+}
+
+@keyframes drip {
+
+    0% {
+        height: 6px;
+        opacity: .4;
+    }
+
+    50% {
+        height: 21px;
+        opacity: 1;
+    }
+
+    100% {
+        height: 6px;
+        opacity: .4;
+    }
+}
+
+
+/* =====================================================
+   TABLE CUP
+===================================================== */
+
+.table-cup {
+    position: absolute;
+
+    right: 22%;
+    bottom: 6%;
+
+    width: 58px;
+    height: 39px;
+
+    z-index: 6;
+
+    background:
+        #e9d7b8;
+
+    border-radius:
+        4px
+        4px
+        18px
+        18px;
+}
+
+.table-cup::before {
+    content: "";
+
+    position: absolute;
+
+    top: -6px;
+    left: 5px;
+
+    width: 48px;
+    height: 13px;
+
+    border-radius: 50%;
+
+    background:
+        #4a3023;
+
+    border:
+        3px solid #ead7b8;
+}
+
+
+/* =====================================================
+   COFFEE BEANS
+===================================================== */
+
+.bean-pile {
+    position: absolute;
+
+    left: 3%;
+    bottom: 5%;
+
+    width: 105px;
+    height: 55px;
+
+    z-index: 6;
+}
+
+.bean {
+    position: absolute;
+
+    width: 12px;
+    height: 18px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #56321f,
+            #2d1b12
+        );
+
+    transform:
+        rotate(35deg);
+}
+
+.bean:nth-child(1) {
+    left: 5px;
+    top: 18px;
+}
+
+.bean:nth-child(2) {
+    left: 26px;
+    top: 5px;
+}
+
+.bean:nth-child(3) {
+    left: 47px;
+    top: 20px;
+}
+
+.bean:nth-child(4) {
+    left: 69px;
+    top: 8px;
+}
+
+.bean:nth-child(5) {
+    left: 89px;
+    top: 27px;
+}
+
+.bean:nth-child(6) {
+    left: 35px;
+    top: 34px;
+}
+
+
+/* =====================================================
+   CROISSANT
+===================================================== */
+
+.croissant {
+    position: absolute;
+
+    right: 3%;
+    bottom: 3%;
+
+    width: 82px;
+    height: 45px;
+
+    z-index: 6;
+}
+
+.croissant-part {
+    position: absolute;
+
+    bottom: 0;
+
+    width: 38px;
+    height: 38px;
+
+    border-radius:
+        70%
+        30%
+        60%
+        30%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d79b58,
+            #985a30
+        );
+}
+
+.croissant-part.one {
+    left: 0;
+
+    transform:
+        rotate(25deg);
+}
+
+.croissant-part.two {
+    left: 22px;
+}
+
+.croissant-part.three {
+    right: 0;
+
+    transform:
+        rotate(-25deg);
+}
+
+
+/* =====================================================
+   NOTES
+===================================================== */
+
+.note {
+    position: absolute;
+
+    width: 45px;
+    height: 45px;
+
+    background:
+        #faecd2;
+
+    border:
+        1px solid rgba(0,0,0,.08);
+
+    box-shadow:
+        2px 2px 8px rgba(0,0,0,.12);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 8;
+}
+
+.note:hover {
+    transform: rotate(5deg) scale(1.05);
+}
+
+.note-text {
+    font-family: "Comic Sans MS", cursive;
+    font-size: 11px;
+    color: #493126;
+    text-align: center;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.note.one {
+    top: 15%;
+    left: 8%;
+    transform: rotate(-15deg);
+}
+
+.note.two {
+    top: 38%;
+    left: 12%;
+    transform: rotate(8deg);
+}
+
+.note.three {
+    top: 22%;
+    left: 15%;
+    transform: rotate(-5deg);
+}
+
+/* =====================================================
+   DATE & TIME DISPLAY (Page 2)
+===================================================== */
+
+.date-time-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    text-align: center;
+    pointer-events: none;
+}
+
+.date-text {
+    font-family: Georgia, serif;
+    font-size: clamp(24px, 5vw, 48px);
+    color: #e7d5b7;
+    margin: 10px 0;
+    letter-spacing: 2px;
+}
+
+.time-text {
+    font-family: Georgia, serif;
+    font-size: clamp(20px, 4vw, 40px);
+    color: #d8c7a9;
+    margin: 10px 0;
+}
+
+.cafe-name {
+    font-family: Georgia, serif;
+    font-size: clamp(18px, 3.5vw, 36px);
+    color: #ead8b8;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,.3);
+}
+
+/* =====================================================
+   NAVIGATION BUTTONS
+===================================================== */
+
+.nav-button {
+    position: absolute;
+    bottom: 8%;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #a96f40;
+    border: 3px solid #6d472e;
+    color: #f7ead4;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 12;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,.3);
+}
+
+.nav-button:hover {
+    background: #916846;
+    transform: scale(1.1);
+}
+
+.nav-button:active {
+    transform: scale(0.95);
+}
+
+.nav-button.prev {
+    right: 8%;
+}
+
+.nav-button.next {
+    left: 8%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- PAGE 1: ORIGINAL COFFEE SHOP -->
+<div class="page active" id="page1">
+    <div class="cafe"></div>
+    <div class="counter"></div>
+    
+    <div class="window"></div>
+    <div class="awning"></div>
+    
+    <div class="wall-frame">
+        <div class="wall-frame-title">☕ القائمة ☕</div>
+        <div class="menu-line"></div>
+        <div class="menu-item">
+            <span>القهوة العربية</span>
+            <span>5 ريال</span>
+        </div>
+        <div class="menu-item">
+            <span>الإسبريسو</span>
+            <span>7 ريال</span>
+        </div>
+        <div class="menu-item">
+            <span>الكابتشينو</span>
+            <span>8 ريال</span>
+        </div>
+        <div class="menu-line"></div>
+        <div class="menu-item">
+            <span>الكرواسون</span>
+            <span>6 ريال</span>
+        </div>
+    </div>
+    
+    <div class="shelf">
+        <div class="shelf-board top"></div>
+        <div class="shelf-board bottom"></div>
+        <div class="shelf-support left"></div>
+        <div class="shelf-support right"></div>
+        
+        <div class="shelf-plant">
+            <div class="shelf-pot"></div>
+            <div class="shelf-stem"></div>
+            <div class="shelf-leaf one"></div>
+            <div class="shelf-leaf two"></div>
+            <div class="shelf-leaf three"></div>
+        </div>
+        
+        <div class="shelf-cup"></div>
+    </div>
+    
+    <div class="lamp">
+        <div class="lamp-wire"></div>
+        <div class="lamp-shade">
+            <div class="lamp-bulb"></div>
+        </div>
+    </div>
+    
+    <div class="machine">
+        <div class="machine-top"></div>
+        <div class="machine-button one"></div>
+        <div class="machine-button two"></div>
+        <div class="machine-gauge"></div>
+        <div class="portafilter">
+            <div class="coffee-stream"></div>
+        </div>
+    </div>
+    
+    <div class="table-cup"></div>
+    
+    <div class="bean-pile">
+        <div class="bean"></div>
+        <div class="bean"></div>
+        <div class="bean"></div>
+        <div class="bean"></div>
+        <div class="bean"></div>
+        <div class="bean"></div>
+    </div>
+    
+    <div class="croissant">
+        <div class="croissant-part one"></div>
+        <div class="croissant-part two"></div>
+        <div class="croissant-part three"></div>
+    </div>
+    
+    <div class="note one"><div class="note-text">☕</div></div>
+    <div class="note two"><div class="note-text">❤️</div></div>
+    <div class="note three"><div class="note-text">📝</div></div>
+    
+    <!-- Navigation -->
+    <button class="nav-button next" onclick="nextPage()">›</button>
+</div>
+
+<!-- PAGE 2: DOTE CAFE -->
+<div class="page" id="page2">
+    <div class="cafe"></div>
+    <div class="counter"></div>
+    
+    <div class="window"></div>
+    <div class="awning"></div>
+    
+    <div class="wall-frame">
+        <div class="wall-frame-title">☕ قائمة دوت ☕</div>
+        <div class="menu-line"></div>
+        <div class="menu-item">
+            <span>قهوة دوت الخاصة</span>
+            <span>10 ريال</span>
+        </div>
+        <div class="menu-item">
+            <span>لاتيه دوت</span>
+            <span>9 ريال</span>
+        </div>
+        <div class="menu-item">
+            <span>موكا شوكلت</span>
+            <span>11 ريال</span>
+        </div>
+        <div class="menu-line"></div>
+        <div class="menu-item">
+            <span>كيك الشوكولاته</span>
+            <span>8 ريال</span>
+        </div>
+    </div>
+    
+    <div class="shelf">
+        <div class="shelf-board top"></div>
+        <div class="shelf-board bottom"></div>
+        <div class="shelf-support left"></div>
+        <div class="shelf-support right"></div>
+        
+        <div class="shelf-plant">
+            <div class="shelf-pot"></div>
+            <div class="shelf-stem"></div>
+            <div class="shelf-leaf one"></div>
+            <div class="shelf-leaf two"></div>
+            <div class="shelf-leaf three"></div>
+        </div>
+        
+        <div class="shelf-cup"></div>
+    </div>
+    
+    <div class="lamp">
+        <div class="lamp-wire"></div>
+        <div class="lamp-shade">
+            <div class="lamp-bulb"></div>
+        </div>
+    </div>
+    
+    <div class="machine">
+        <div class="machine-top"></div>
+        <div class="machine-button one"></div>
+        <div class="machine-button two"></div>
+        <div class="machine-gauge"></div>
+        <div class="portafilter">
+            <div class="coffee-stream"></div>
+        </div>
+    </div>
+    
+    <div class="table-cup"></div>
+    
+    <div class="bean-pile">
+        <div class="bean"></div>
+        <div class="bean"></div>
+        <div class="bean"></div>
+        <div class="bean"></div>
+        <div class="bean"></div>
+        <div class="bean"></div>
+    </div>
+    
+    <div class="croissant">
+        <div class="croissant-part one"></div>
+        <div class="croissant-part two"></div>
+        <div class="croissant-part three"></div>
+    </div>
+    
+    <div class="note one"><div class="note-text">☕</div></div>
+    <div class="note two"><div class="note-text">❤️</div></div>
+    <div class="note three"><div class="note-text">📝</div></div>
+    
+    <!-- Date & Time Display -->
+    <div class="date-time-display">
+        <div class="cafe-name">دوت كافيه</div>
+        <div class="date-text">١ سبتمبر</div>
+        <div class="time-text">٥:٣٠ م</div>
+    </div>
+    
+    <!-- Navigation -->
+    <button class="nav-button prev" onclick="prevPage()">‹</button>
+</div>
+
+<script>
+function nextPage() {
+    const currentPage = document.querySelector('.page.active');
+    const nextPage = currentPage.nextElementSibling;
+    
+    if (nextPage && nextPage.classList.contains('page')) {
+        currentPage.classList.remove('active');
+        nextPage.classList.add('active');
+    }
+}
+
+function prevPage() {
+    const currentPage = document.querySelector('.page.active');
+    const prevPage = currentPage.previousElementSibling;
+    
+    if (prevPage && prevPage.classList.contains('page')) {
+        currentPage.classList.remove('active');
+        prevPage.classList.add('active');
+    }
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') nextPage();
+    if (e.key === 'ArrowLeft') prevPage();
+});
+</script>
+
+</body>
+
+</html>
